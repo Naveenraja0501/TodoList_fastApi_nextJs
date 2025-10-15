@@ -1,0 +1,178 @@
+/* Home.css */
+
+.notes-container {
+  padding: 40px;
+  min-height: 100vh;
+  background: #f9f9f9;
+  font-family: "Poppins", sans-serif;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.header h1 {
+  flex: 1;
+  text-align: center;
+  font-size: 28px;
+  margin: 0;
+  color: #1f2937;
+}
+
+.logout-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #ef4444;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.3s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 10%;
+}
+
+.logout-btn:hover {
+  background: #b91c1c;
+}
+
+.input-section {
+  max-width: 500px;
+  margin: 0 auto 30px auto;
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+input,
+textarea {
+  width: 90%;
+  padding: 12px 14px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 15px;
+  outline: none;
+  background: #fff;
+  transition: 0.3s;
+}
+
+input:focus,
+textarea:focus {
+  border-color: #dc2626;
+  box-shadow: 0 0 8px rgba(220, 38, 38, 0.3);
+}
+
+textarea {
+  resize: none;
+  height: 100px;
+}
+
+button {
+  width: 97%;
+  background: #dc2626;
+  color: white;
+  font-size: 16px;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: #b91c1c;
+}
+
+.card-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.note-card {
+  background: white;
+  width: 300px;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: 0.3s;
+}
+
+.note-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.note-content h2 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: #111;
+}
+
+.note-content p {
+  font-size: 14px;
+  color: #444;
+}
+
+.card-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.edit-btn {
+  background: #3b82f6;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.edit-btn:hover {
+  background: #2563eb;
+}
+
+.delete-btn {
+  background: #ef4444;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  background: #b91c1c;
+}
+
+.no-notes {
+  text-align: center;
+  color: #777;
+  width: 100%;
+}
+
+@media (max-width: 480px) {
+  .note-card {
+    width: 90%;
+  }
+  .input-section {
+    width: 90%;
+  }
+}
