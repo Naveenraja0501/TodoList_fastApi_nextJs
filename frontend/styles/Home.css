@@ -134,20 +134,24 @@ button:hover {
   margin-top: 15px;
 }
 
+/* Edit button as outlined */
 .edit-btn {
-  background: #3b82f6;
-  color: white;
-  border: none;
+  background: white;              /* white background */
+  color: #ef4444;                 /* red text */
+  border: 2px solid #ef4444;      /* red border */
   padding: 6px 12px;
   border-radius: 6px;
   font-size: 13px;
   cursor: pointer;
+  transition: 0.3s;
 }
 
 .edit-btn:hover {
-  background: #2563eb;
+  background: #ef4444;            /* fill red on hover */
+  color: white;                   /* text becomes white */
 }
 
+/* Delete button remains filled red */
 .delete-btn {
   background: #ef4444;
   color: white;
@@ -156,6 +160,7 @@ button:hover {
   border-radius: 6px;
   font-size: 13px;
   cursor: pointer;
+  transition: 0.3s;
 }
 
 .delete-btn:hover {
