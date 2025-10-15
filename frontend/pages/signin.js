@@ -7,6 +7,8 @@ import "../styles/SignIn.css";
 
 export default function SignIn() {
   const [form, setForm] = useState({ user_email: "", password: "" });
+  const [message, setMessage] = useState("");           // notification message
+  const [messageType, setMessageType] = useState("");   // 'success' or 'error'
   const setUser = useUserStore((state) => state.setUser);
   const router = useRouter();
 
@@ -16,23 +18,40 @@ export default function SignIn() {
       const res = await axiosInstance.post("/login", form);
       setUser(res.data);
       localStorage.setItem("user", JSON.stringify(res.data));
-      alert("Login successful!");
-      router.push("/");
+      setMessage("Login successful! Redirecting...");
+      setMessageType("success");
+
+      // Redirect after short delay to show message
+      setTimeout(() => {
+        router.push("/");
+      }, 1500);
+
     } catch (err) {
       console.error(err);
-      alert("Login failed! Check your credentials.");
+      setMessage("Login failed! Check your credentials.");
+      setMessageType("error");
+
+      // Hide message after 3 seconds
+      setTimeout(() => {
+        setMessage("");
+        setMessageType("");
+      }, 3000);
     }
   };
 
   return (
     <div className="container">
-
-
-      {/* Right side form */}
       <div className="form-container">
         <div className="highlighted-card">
           <form onSubmit={handleSubmit}>
             <h2>Sign In</h2>
+
+            {/* Notification message */}
+            {message && (
+              <div className={`notification ${messageType}`}>
+                {message}
+              </div>
+            )}
 
             <input
               type="email"

@@ -6,20 +6,20 @@ import "../styles/Home.css";
 
 export default function Home() {
   const router = useRouter();
-  const { user, setUser } = useUserStore(); // Zustand store
+  const { user, setUser } = useUserStore(); 
   const [notes, setNotes] = useState([]);
   const [newNote, setNewNote] = useState({ note_title: "", note_content: "" });
   const [editingNote, setEditingNote] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
+  const [messageType, setMessageType] = useState("");
 
-  // Redirect to login if user is not logged in
   useEffect(() => {
     if (!user) {
       router.push("/signin");
     }
   }, [user, router]);
 
-  // Fetch all notes
   const fetchNotes = async () => {
     if (!user) return;
     try {
@@ -37,10 +37,18 @@ export default function Home() {
     fetchNotes();
   }, [user]);
 
-  // Create new note
+  const showMessage = (msg, type) => {
+    setMessage(msg);
+    setMessageType(type);
+    setTimeout(() => {
+      setMessage("");
+      setMessageType("");
+    }, 3000);
+  };
+
   const handleAdd = async () => {
     if (!newNote.note_title || !newNote.note_content) {
-      alert("Please enter both title and content!");
+      showMessage("Please enter both title and content!", "error");
       return;
     }
     try {
@@ -48,14 +56,15 @@ export default function Home() {
       await axiosInstance.post(`/notes?user_id=${user.user_id}`, newNote);
       setNewNote({ note_title: "", note_content: "" });
       fetchNotes();
+      showMessage("Note added successfully!", "success");
     } catch (err) {
       console.error("Error adding note:", err);
+      showMessage("Failed to add note!", "error");
     } finally {
       setLoading(false);
     }
   };
 
-  // Edit note
   const handleEdit = (note) => {
     setEditingNote(note);
     setNewNote({
@@ -64,7 +73,6 @@ export default function Home() {
     });
   };
 
-  // Update note
   const handleUpdate = async () => {
     if (!editingNote) return;
 
@@ -74,25 +82,27 @@ export default function Home() {
       setEditingNote(null);
       setNewNote({ note_title: "", note_content: "" });
       fetchNotes();
+      showMessage("Note updated successfully!", "success");
     } catch (err) {
       console.error("Error updating note:", err);
+      showMessage("Failed to update note!", "error");
     } finally {
       setLoading(false);
     }
   };
 
-  // Delete note
   const handleDelete = async (note_id) => {
     if (!confirm("Are you sure you want to delete this note?")) return;
     try {
       await axiosInstance.delete(`/notes/${note_id}`);
       fetchNotes();
+      showMessage("Note deleted successfully!", "success");
     } catch (err) {
       console.error("Error deleting note:", err);
+      showMessage("Failed to delete note!", "error");
     }
   };
 
-  // Logout
   const handleLogout = () => {
     setUser(null);
     router.push("/signin");
@@ -108,6 +118,9 @@ export default function Home() {
           Logout
         </button>
       </div>
+
+      {/* Notification */}
+      {message && <div className={`notification ${messageType}`}>{message}</div>}
 
       <div className="input-section">
         <input
